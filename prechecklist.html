@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre-Made Travel Lists | TravelMate</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+    body { font-family: "Roboto", sans-serif; background-color: #f5f5f5; }
+    .container { max-width: 900px; margin: 40px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .card { padding: 20px; margin-bottom: 20px; border-left: 5px solid #009688; background-color: #ecfefb; border-radius: 6px; }
+    .card h4 { margin-top: 0; }
+    .card ul { margin-left: 20px; }
+    .edit-btn { margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2 class="w3-center">Pre-Made Travel Checklists</h2>
+  <p class="w3-center w3-text-grey">Select and edit from commonly used professional travel templates</p>
+
+  <!-- Beach Vacation List -->
+  <div class="card">
+    <h4>Beach Vacation</h4>
+    <ul>
+      <li>Swimwear</li>
+      <li>Sunscreen</li>
+      <li>Towels</li>
+      <li>Sandals/Flip-flops</li>
+      <li>Beach umbrella or mat</li>
+    </ul>
+    <button class="w3-button w3-teal edit-btn" onclick="editList('Beach Vacation')">Edit List</button>
+  </div>
+
+  <!-- Business Trip List -->
+  <div class="card">
+    <h4>Business Trip</h4>
+    <ul>
+      <li>Formal wear</li>
+      <li>Laptop and charger</li>
+      <li>Presentation material</li>
+      <li>Business cards</li>
+      <li>Travel documents</li>
+    </ul>
+    <button class="w3-button w3-teal edit-btn" onclick="editList('Business Trip')">Edit List</button>
+  </div>
+
+  <!-- Family Holiday List -->
+  <div class="card">
+    <h4>Family Holiday</h4>
+    <ul>
+      <li>Clothes for kids</li>
+      <li>Medicines</li>
+      <li>Board games or toys</li>
+      <li>Snacks</li>
+      <li>Baby care items</li>
+    </ul>
+    <button class="w3-button w3-teal edit-btn" onclick="editList('Family Holiday')">Edit List</button>
+  </div>
+
+</div>
+
+<script>
+  function editList(title) {
+    alert("Redirecting to edit mode for: " + title + "\n(This would load an editable version in a real app.)");
+    // In a real app, redirect to: window.location.href = `/edit-list?template=${title}`;
+  }
+</script>
+
+</body>
+</html>

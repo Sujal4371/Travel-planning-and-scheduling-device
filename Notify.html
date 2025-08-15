@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Travel Notifications | TravelMate</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+  <style>
+    body {
+      font-family: "Roboto", sans-serif;
+      background: #fffde7;
+    }
+    .container {
+      max-width: 700px;
+      margin: 100px auto 40px auto;
+      padding: 20px;
+      background: #fff8e1;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    input[type="date"], input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .w3-button.w3-green {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .w3-button.w3-green:hover {
+      background-color: #45a049;
+    }
+    .reminder-log {
+      margin-top: 30px;
+      background: #fffde7;
+      padding: 15px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="w3-top">
+    <div class="w3-bar w3-white w3-card w3-padding">
+      <a href="home.html" class="w3-bar-item w3-button w3-wide"><b>TravelMate</b></a>
+      <div class="w3-right w3-hide-small">
+        <a href="home.html" class="w3-bar-item w3-button">Home</a>
+        <a href="checklist.html" class="w3-bar-item w3-button">Checklist</a>
+        <a href="avail_&_timer.html" class="w3-bar-item w3-button">Availability</a>
+        <a href="Budget.html" class="w3-bar-item w3-button">BudgetChart</a>
+        <a href="Notify.html" class="w3-bar-item w3-button">Remember</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2 class="w3-center">Set Travel Notifications</h2>
+    <p class="w3-center w3-text-grey">Stay informed about upcoming trips and pending items</p>
+
+    <form id="notifyForm">
+      <label><b>Trip Name:</b></label>
+      <input type="text" id="tripName" placeholder="e.g., Goa Trip" required>
+
+      <label><b>Travel Date:</b></label>
+      <input type="date" id="tripDate" required>
+
+      <label><b>Pending Item (Optional):</b></label>
+      <input type="text" id="pendingItem" placeholder="e.g., Buy Sunscreen">
+
+      <button type="submit" class="w3-button w3-green w3-margin-top w3-round">Schedule Notification</button>
+    </form>
+
+    <div id="messageBox" class="w3-panel w3-pale-green w3-leftbar w3-border-green w3-hide w3-margin-top">
+      <p id="messageText"></p>
+    </div>
+
+    <div class="reminder-log w3-small w3-text-dark-grey" id="reminderList"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById("notifyForm");
+    const reminderList = document.getElementById("reminderList");
+
+    let reminders = JSON.parse(localStorage.getItem("travelReminders")) || [];
+
+    function renderReminders() {
+      if (reminders.length === 0) {
+        reminderList.innerHTML = "<i>No notifications scheduled yet.</i>";
+        return;
+      }
+      reminderList.innerHTML = "<b>Scheduled Notifications:</b><ul>" +
+        reminders.map(r => `<li>${r.trip} on ${r.date}${r.item ? ' - ' + r.item : ''}</li>`).join('') +
+        "</ul>";
+    }
+
+    function showNotification(trip, date, item) {
+      const message = `${trip} is coming up on ${date}! ${item ? 'Don't forget to: ' + item : ''}`;
+      Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+          new Notification("TravelMate Reminder", { body: message });
+        }
+      });
+    }
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const trip = document.getElementById("tripName").value.trim();
+      const date = document.getElementById("tripDate").value;
+      const item = document.getElementById("pendingItem").value.trim();
+
+      if (!trip || !date) {
+        alert("Please enter trip name and date.");
+        return;
+      }
+
+      const today = new Date().toISOString().split("T")[0];
+      if (date < today) {
+        alert("Please select a future date.");
+        return;
+      }
+
+      // Store reminder
+      const reminder = { trip, date, item };
+      reminders.push(reminder);
+      localStorage.setItem("travelReminders", JSON.stringify(reminders));
+
+      // Show in message box
+      const msgText = `✔️ Notification scheduled for "<strong>${trip}</strong>" on <strong>${date}</strong>${item ? ' with reminder: <em>' + item + '</em>' : ''}.`;
+      document.getElementById("messageText").innerHTML = msgText;
+      document.getElementById("messageBox").classList.remove("w3-hide");
+
+      // Trigger instant notification for demo
+      showNotification(trip, date, item);
+
+      // Refresh reminder list
+      renderReminders();
+
+      // Reset form
+      form.reset();
+    });
+
+    renderReminders();
+  </script>
+
+</body>
+</html>

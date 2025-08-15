@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Item Availability & Reminders | TravelMate</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+  <style>
+    body {
+      font-family: "Roboto", sans-serif;
+      background-color: #fffde7;
+    }
+    .container {
+      max-width: 800px;
+      margin: 100px auto 40px auto;
+      padding: 20px;
+      background: #fff8e1;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .item-row input[type='text'] {
+      width: 60%;
+      padding: 6px;
+    }
+    .available-checkbox {
+      margin-right: 10px;
+    }
+    .reminder-btn {
+      margin-left: 10px;
+    }
+    .reminder-list {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="w3-top">
+    <div class="w3-bar w3-white w3-card w3-padding">
+      <a href="home.html" class="w3-bar-item w3-button w3-wide"><b>TravelMate</b></a>
+      <div class="w3-right w3-hide-small">
+        <a href="home.html" class="w3-bar-item w3-button">Home</a>
+        <a href="checklist.html" class="w3-bar-item w3-button">Checklist</a>
+        <a href="avail_&_timer.html" class="w3-bar-item w3-button">Availability</a>
+        <a href="Budget.html" class="w3-bar-item w3-button">BudgetChart</a>
+        <a href="Notify.html" class="w3-bar-item w3-button">Remember</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2 class="w3-center">Check Item Availability & Set Reminders</h2>
+    <p class="w3-center w3-text-grey">Mark if you have the item or set a reminder to get it</p>
+
+    <form id="availabilityForm">
+      <div id="itemContainer">
+        <div class="item-row">
+          <input type="text" placeholder="Enter item name" class="w3-input w3-border" required>
+          <label><input type="checkbox" class="available-checkbox"> Available</label>
+          <button type="button" class="w3-button w3-blue reminder-btn" onclick="setReminder(this)">Set Reminder</button>
+        </div>
+      </div>
+      <button type="button" class="w3-button w3-green w3-margin-top" onclick="addNewItem()">+ Add More Items</button>
+    </form>
+
+    <div class="reminder-list w3-panel w3-pale-yellow w3-leftbar w3-border-yellow w3-hide" id="reminderList">
+      <h4>Reminder Items</h4>
+      <ul id="reminderItems"></ul>
+    </div>
+  </div>
+
+  <script>
+    let reminders = JSON.parse(localStorage.getItem('itemReminders')) || [];
+
+    function renderSavedReminders() {
+      const list = document.getElementById('reminderItems');
+      const reminderDiv = document.getElementById('reminderList');
+      if (reminders.length > 0) {
+        list.innerHTML = '';
+        reminders.forEach(itemName => {
+          const li = document.createElement('li');
+          li.textContent = `${itemName} - Reminder set!`;
+          list.appendChild(li);
+        });
+        reminderDiv.classList.remove('w3-hide');
+      }
+    }
+
+    function addNewItem() {
+      const container = document.getElementById('itemContainer');
+      const row = document.createElement('div');
+      row.className = 'item-row';
+      row.innerHTML = `
+        <input type="text" placeholder="Enter item name" class="w3-input w3-border" required>
+        <label><input type="checkbox" class="available-checkbox"> Available</label>
+        <button type="button" class="w3-button w3-blue reminder-btn" onclick="setReminder(this)">Set Reminder</button>
+      `;
+      container.appendChild(row);
+      const newInput = row.querySelector('input[type="text"]');
+      newInput.focus();
+    }
+
+    function setReminder(btn) {
+      const row = btn.parentElement;
+      const input = row.querySelector('input[type="text"]');
+      const checkbox = row.querySelector('input[type="checkbox"]');
+      const itemName = input.value.trim();
+
+      if (!itemName) {
+        alert("Please enter an item name.");
+        return;
+      }
+
+      if (checkbox.checked) {
+        alert("This item is already marked as available.");
+        return;
+      }
+
+      if (reminders.includes(itemName)) {
+        alert("Reminder already set for this item.");
+        return;
+      }
+
+      reminders.push(itemName);
+      localStorage.setItem('itemReminders', JSON.stringify(reminders));
+
+      const list = document.getElementById('reminderItems');
+      const reminderDiv = document.getElementById('reminderList');
+      const li = document.createElement('li');
+      li.textContent = `${itemName} - Reminder set!`;
+      list.appendChild(li);
+
+      reminderDiv.classList.remove('w3-hide');
+
+      input.disabled = true;
+      checkbox.disabled = true;
+      btn.disabled = true;
+    }
+
+    // Load saved reminders on page load
+    window.onload = renderSavedReminders;
+  </script>
+
+</body>
+</html>

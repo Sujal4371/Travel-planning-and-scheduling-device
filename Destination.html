@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trending Destinations & Deals | TravelMate</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+    body { font-family: "Roboto", sans-serif; background: #f2f2f2; }
+    .container { max-width: 1000px; margin: 40px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .section-title { font-size: 26px; margin-top: 30px; }
+    .destinations, .deals { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px; }
+    .card { background: #fafafa; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex: 1 1 calc(33.333% - 20px); min-width: 250px; }
+    .card img { width: 100%; height: 180px; object-fit: cover; }
+    .card .info { padding: 15px; }
+    .highlight { background-color: #fff9e6; padding: 10px; border-left: 5px solid #f39c12; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2 class="w3-center">🌍 Trending Travel Destinations</h2>
+
+  <div class="destinations">
+    <div class="card">
+      <img src="https://source.unsplash.com/400x300/?bali" alt="Bali">
+      <div class="info">
+        <h4>Bali, Indonesia</h4>
+        <p>Known for its forested volcanic mountains, beaches, and coral reefs.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://source.unsplash.com/400x300/?japan" alt="Japan">
+      <div class="info">
+        <h4>Kyoto, Japan</h4>
+        <p>Rich in cultural heritage, temples, and cherry blossoms in spring.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://source.unsplash.com/400x300/?paris" alt="Paris">
+      <div class="info">
+        <h4>Paris, France</h4>
+        <p>The city of lights is always a classic for food, fashion, and romance.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">🎫 Travel Deals from Our Partners</h2>
+  <div class="deals">
+    <div class="card">
+      <div class="info highlight">
+        <h4>TripBuddy</h4>
+        <p>💥 Flat ₹5,000 off on round trips to Europe. Limited seats!</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="info highlight">
+        <h4>SwiftFly</h4>
+        <p>✈️ Domestic flights starting at ₹1,299. Book by this weekend.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="info highlight">
+        <h4>WanderDeals</h4>
+        <p>🏖️ Maldives 3N/4D packages from ₹22,999 including flights!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

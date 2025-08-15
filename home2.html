@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>TravelMate | Smart Trip Checklist</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body { font-family: "Roboto", sans-serif; background: #f9f9f9; }
+    .hero-img { width: 100%; max-height: 500px; object-fit: cover; }
+    .section-title { font-size: 32px; font-weight: bold; margin-bottom: 20px; color: #333; }
+    .custom-yellow { background-color: #f8c000; color: #333; }
+    .highlight-box { background-color: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+    .w3-bar .w3-button:hover { background-color: #f8c000 !important; color: black !important; }
+    .footer-icon:hover { color: #f8c000; cursor: pointer; }
+    .card img { width: 100%; height: 180px; object-fit: cover; }
+    .card .info { padding: 15px; }
+    .highlight { background-color: #fff9e6; padding: 10px; border-left: 5px solid #f39c12; }
+    .card { background: #fafafa; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex: 1 1 calc(33.333% - 20px); min-width: 250px; margin-bottom: 20px; }
+    .destinations, .deals { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px; }
+    .faq details { background: #fff; padding: 15px; border-radius: 5px; margin-bottom: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+  </style>
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card w3-padding">
+    <a href="#" class="w3-bar-item w3-button w3-wide"><b>TravelMate</b></a>
+    <div class="w3-right w3-hide-small">
+      <a href="#destinations" class="w3-bar-item w3-button">Destinations</a>
+      <a href="#contact" class="w3-bar-item w3-button">Contact</a>
+      <a href="login2.html" class="w3-bar-item w3-button" style="color:#ff9800; font-weight:bold;">Login</a>
+    </div>
+  </div>
+</div>
+
+<!-- Hero Section -->
+<header class="w3-display-container w3-content" style="max-width:1500px">
+  <img class="hero-img" src="darjeling.jpg" alt="Travel">
+  <div class="w3-display-middle w3-padding w3-text-white w3-center">
+    <h1 class="w3-jumbo">Plan. Pack. Travel Smart.</h1>
+    <p class="w3-large">Your intelligent travel checklist assistant</p>
+    <a href="login2.html" class="w3-button custom-yellow w3-large w3-round w3-margin-top">Get Started</a>
+  </div>
+</header>
+
+<!-- Checklist Section -->
+<div class="w3-container w3-padding-64" id="checklist">
+  <h2 class="section-title">Smart Travel Checklist</h2>
+  <div class="highlight-box">
+    <p>Create dynamic checklists tailored to your destination, duration, and companions. TravelMate's algorithm generates essentials and lets you customize the rest. Set reminders for unowned items and sync with trip dates and budgets. Make packing a breeze!</p>
+  </div>
+</div>
+
+<!-- Destination Gallery -->
+<div class="w3-container" id="destinations">
+  <h2 class="section-title">Popular Destinations</h2>
+  <div class="w3-row-padding">
+    <div class="w3-third w3-margin-bottom">
+      <img src="leh.jpg" alt="Leh" style="width:100%">
+      <div class="w3-container w3-white">
+        <h3>Leh</h3>
+        <p>Explore the mountains with a well-planned checklist</p>
+      </div>
+    </div>
+    <div class="w3-third w3-margin-bottom">
+      <img src="laksha.jpg" alt="Lakshadweep" style="width:100%">
+      <div class="w3-container w3-white">
+        <h3>Lakshadweep</h3>
+        <p>Island vibes? Don’t forget your snorkeling gear!</p>
+      </div>
+    </div>
+    <div class="w3-third w3-margin-bottom">
+      <img src="darjeling.jpg" alt="Darjeeling" style="width:100%">
+      <div class="w3-container w3-white">
+        <h3>Darjeeling</h3>
+        <p>Pack warm layers and enjoy the tea estates!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Trending + Deals Section -->
+<div class="w3-container w3-padding-64">
+  <h2 class="section-title">🌍 Trending Travel Destinations</h2>
+  <div class="destinations">
+    <div class="card">
+      <img src="Bali.jpg" alt="Bali">
+      <div class="info">
+        <h4>Bali, Indonesia</h4>
+        <p>Known for its forested volcanic mountains, beaches, and coral reefs.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="Kyoto.jpeg" alt="Japan">
+      <div class="info">
+        <h4>Kyoto, Japan</h4>
+        <p>Rich in cultural heritage, temples, and cherry blossoms in spring.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="Paris.jpeg" alt="Paris">
+      <div class="info">
+        <h4>Paris, France</h4>
+        <p>The city of lights is always a classic for food, fashion, and romance.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">🎫 Travel Deals from Our Partners</h2>
+  <div class="deals">
+    <div class="card">
+      <div class="info highlight">
+        <h4>TripBuddy</h4>
+        <p>💥 Flat ₹5,000 off on round trips to Europe. Limited seats!</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="info highlight">
+        <h4>SwiftFly</h4>
+        <p>✈️ Domestic flights starting at ₹1,299. Book by this weekend.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="info highlight">
+        <h4>WanderDeals</h4>
+        <p>🏖️ Maldives 3N/4D packages from ₹22,999 including flights!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ Section -->
+<div class="w3-container w3-padding-64" id="faq">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details><summary><b>How do I generate a checklist?</b></summary><p>Click Get Started and answer simple questions about your trip. Your list will be generated automatically.</p></details>
+    <details><summary><b>Can I edit the items?</b></summary><p>Yes! Add or remove items anytime from your list.</p></details>
+    <details><summary><b>Is there a mobile app?</b></summary><p>We’re launching on Android and iOS soon. Stay tuned!</p></details>
+  </div>
+</div>
+
+
+<!-- Contact Section -->
+<div class="w3-container w3-padding-64" id="contact">
+  <h2 class="section-title">Contact Us</h2>
+  <p class="w3-center">Have questions or feedback? We'd love to hear from you.</p>
+  <form class="w3-container w3-card-4 w3-padding-32 w3-white" action="/submit_contact" method="post">
+    <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Name" name="name" required>
+    <input class="w3-input w3-border w3-margin-bottom" type="email" placeholder="Email" name="email" required>
+    <textarea class="w3-input w3-border w3-margin-bottom" placeholder="Message" name="message" required></textarea>
+    <button class="w3-button custom-yellow w3-round" type="submit">Send Message</button>
+  </form>
+</div>
+
+
+
+<!-- Footer -->
+<footer class="w3-center w3-padding-64 w3-light-grey">
+  <div>
+    <i class="fab fa-facebook footer-icon w3-margin"></i>
+    <i class="fab fa-instagram footer-icon w3-margin"></i>
+    <i class="fab fa-twitter footer-icon w3-margin"></i>
+    <i class="fab fa-linkedin footer-icon w3-margin"></i>
+  </div>
+  <p class="w3-small">&copy; 2025 TravelMate. Powered by <a href="https://www.w3schools.com/w3css/" target="_blank">W3.CSS</a></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Budget Tracker | TravelMate</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+  <style>
+    body { font-family: "Roboto", sans-serif; background: #fffde7; }
+    .container {
+      max-width: 900px;
+      margin: 100px auto 40px auto;
+      background: #fff8e1;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    input[type='text'], input[type='number'] {
+      padding: 8px;
+      width: 100%;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .entry-item {
+      background: #fffde7;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .delete-btn {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .delete-btn:hover {
+      background-color: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+  <div class="w3-top">
+    <div class="w3-bar w3-white w3-card w3-padding">
+      <a href="home.html" class="w3-bar-item w3-button w3-wide"><b>TravelMate</b></a>
+      <div class="w3-right w3-hide-small">
+        <a href="home.html" class="w3-bar-item w3-button">Home</a>
+        <a href="checklist.html" class="w3-bar-item w3-button">Checklist</a>
+        <a href="avail_&_timer.html" class="w3-bar-item w3-button">Availability</a>
+        <a href="Budget.html" class="w3-bar-item w3-button">BudgetChart</a>
+        <a href="Notify.html" class="w3-bar-item w3-button">Remember</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2 class="w3-center">Budget Tracker</h2>
+    <p class="w3-center w3-text-grey">Set your budget and track your expenses</p>
+
+    <div id="budgetSection">
+      <label><b>Total Budget (₹):</b></label>
+      <input type="number" id="totalBudget" placeholder="Enter your total travel budget" min="0" required>
+      <button onclick="setBudget()" class="w3-button w3-yellow w3-margin-top">Set Budget</button>
+    </div>
+
+    <div id="expenseSection" style="display:none;">
+      <label><b>Item Name:</b></label>
+      <input type="text" id="itemName" placeholder="e.g., Food, Ticket" required>
+
+      <label><b>Price (₹):</b></label>
+      <input type="number" id="itemPrice" placeholder="e.g., 500" min="0" required>
+
+      <button onclick="addExpense()" class="w3-button w3-yellow w3-margin-top">Add Expense</button>
+    </div>
+
+    <div class="entry-list w3-margin-top" id="entryList"></div>
+
+    <div class="entry-summary w3-padding w3-round-large w3-margin-top" style="background: #fffde7;">
+      <h4>Summary</h4>
+      <p><b>Total Budget:</b> ₹<span id="budgetAmount">0</span></p>
+      <p><b>Total Spent:</b> ₹<span id="spentAmount">0</span></p>
+      <p><b>Remaining Balance:</b> ₹<span id="remainingAmount">0</span></p>
+    </div>
+  </div>
+
+  <script>
+    let totalBudget = 0;
+    let totalSpent = 0;
+    let items = [];
+
+    // Load from localStorage
+    window.onload = function () {
+      const savedBudget = localStorage.getItem('totalBudget');
+      const savedItems = JSON.parse(localStorage.getItem('items'));
+
+      if (savedBudget) {
+        totalBudget = parseFloat(savedBudget);
+        document.getElementById('budgetAmount').innerText = totalBudget.toFixed(2);
+        document.getElementById('remainingAmount').innerText = totalBudget.toFixed(2);
+        document.getElementById('budgetSection').style.display = 'none';
+        document.getElementById('expenseSection').style.display = 'block';
+      }
+
+      if (savedItems && Array.isArray(savedItems)) {
+        items = savedItems;
+        totalSpent = items.reduce((sum, item) => sum + item.price, 0);
+        updateUI();
+      }
+    };
+
+    function setBudget() {
+      const budgetInput = document.getElementById('totalBudget').value;
+      if (!budgetInput || isNaN(budgetInput) || budgetInput <= 0) {
+        alert("Please enter a valid budget.");
+        return;
+      }
+      totalBudget = parseFloat(budgetInput);
+      localStorage.setItem('totalBudget', totalBudget);
+      document.getElementById('budgetAmount').innerText = totalBudget.toFixed(2);
+      document.getElementById('remainingAmount').innerText = (totalBudget - totalSpent).toFixed(2);
+      document.getElementById('budgetSection').style.display = 'none';
+      document.getElementById('expenseSection').style.display = 'block';
+      document.getElementById('itemName').focus();
+    }
+
+    function addExpense() {
+      const name = document.getElementById('itemName').value.trim();
+      const price = parseFloat(document.getElementById('itemPrice').value);
+
+      if (!name || isNaN(price) || price <= 0) {
+        alert("Please enter valid item and price.");
+        return;
+      }
+
+      const projectedSpent = totalSpent + price;
+
+      if (projectedSpent > totalBudget) {
+        const confirmAdd = confirm(`⚠️ You have exceeded your budget!\nYou planned ₹${totalBudget}, but this will make it ₹${projectedSpent}.\n\nDo you still want to continue?`);
+        if (!confirmAdd) return;
+      }
+
+      items.push({ name, price });
+      totalSpent += price;
+
+      localStorage.setItem('items', JSON.stringify(items));
+
+      document.getElementById('itemName').value = '';
+      document.getElementById('itemPrice').value = '';
+      document.getElementById('itemName').focus();
+
+      updateUI();
+    }
+
+    function deleteExpense(index) {
+      totalSpent -= items[index].price;
+      items.splice(index, 1);
+      localStorage.setItem('items', JSON.stringify(items));
+      updateUI();
+    }
+
+    function updateUI() {
+      const list = document.getElementById('entryList');
+      list.innerHTML = '';
+
+      items.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'entry-item';
+        div.innerHTML = `
+          <div>
+            <b>${item.name}</b><br>
+            Price: ₹${item.price.toFixed(2)}
+          </div>
+          <button class="delete-btn" onclick="deleteExpense(${index})">Delete</button>
+        `;
+        list.appendChild(div);
+      });
+
+      document.getElementById('spentAmount').innerText = totalSpent.toFixed(2);
+      document.getElementById('remainingAmount').innerText = (totalBudget - totalSpent).toFixed(2);
+    }
+  </script>
+</body>
+</html>
